@@ -1,0 +1,302 @@
+[
+  {
+    "num": 1,
+    "name": "Alabama",
+    "abbreviation": "AL",
+    "schools": 23
+  },
+  {
+    "num": 2,
+    "name": "Alaska",
+    "abbreviation": "AK",
+    "schools": 1
+  },
+  {
+    "num": 4,
+    "name": "Arizona",
+    "abbreviation": "AZ",
+    "schools": 9
+  },
+  {
+    "num": 5,
+    "name": "Arkansas",
+    "abbreviation": "AR",
+    "schools": 17
+  },
+  {
+    "num": 6,
+    "name": "California",
+    "abbreviation": "CA",
+    "schools": 86
+  },
+  {
+    "num": 8,
+    "name": "Colorado",
+    "abbreviation": "CO",
+    "schools": 18
+  },
+  {
+    "num": 9,
+    "name": "Connecticut",
+    "abbreviation": "CT",
+    "schools": 18
+  },
+  {
+    "num": 10,
+    "name": "Delaware",
+    "abbreviation": "DE",
+    "schools": 4
+  },
+  {
+    "num": 12,
+    "name": "Florida",
+    "abbreviation": "FL",
+    "schools": 47
+  },
+  {
+    "num": 13,
+    "name": "Georgia",
+    "abbreviation": "GA",
+    "schools": 43
+  },
+  {
+    "num": 15,
+    "name": "Hawaii",
+    "abbreviation": "HI",
+    "schools": 6
+  },
+  {
+    "num": 16,
+    "name": "Idaho",
+    "abbreviation": "ID",
+    "schools": 6
+  },
+  {
+    "num": 17,
+    "name": "Illinois",
+    "abbreviation": "IL",
+    "schools": 55
+  },
+  {
+    "num": 18,
+    "name": "Indiana",
+    "abbreviation": "IN",
+    "schools": 44
+  },
+  {
+    "num": 19,
+    "name": "Iowa",
+    "abbreviation": "IA",
+    "schools": 31
+  },
+  {
+    "num": 20,
+    "name": "Kansas",
+    "abbreviation": "KS",
+    "schools": 23
+  },
+  {
+    "num": 21,
+    "name": "Kentucky",
+    "abbreviation": "KY",
+    "schools": 24
+  },
+  {
+    "num": 22,
+    "name": "Louisiana",
+    "abbreviation": "LA",
+    "schools": 23
+  },
+  {
+    "num": 23,
+    "name": "Maine",
+    "abbreviation": "ME",
+    "schools": 15
+  },
+  {
+    "num": 24,
+    "name": "Maryland",
+    "abbreviation": "MD",
+    "schools": 24
+  },
+  {
+    "num": 25,
+    "name": "Massachusetts",
+    "abbreviation": "MA",
+    "schools": 68
+  },
+  {
+    "num": 26,
+    "name": "Michigan",
+    "abbreviation": "MI",
+    "schools": 41
+  },
+  {
+    "num": 27,
+    "name": "Minnesota",
+    "abbreviation": "MN",
+    "schools": 34
+  },
+  {
+    "num": 28,
+    "name": "Mississippi",
+    "abbreviation": "MS",
+    "schools": 15
+  },
+  {
+    "num": 29,
+    "name": "Missouri",
+    "abbreviation": "MO",
+    "schools": 37
+  },
+  {
+    "num": 30,
+    "name": "Montana",
+    "abbreviation": "MT",
+    "schools": 6
+  },
+  {
+    "num": 31,
+    "name": "Nebraska",
+    "abbreviation": "NE",
+    "schools": 16
+  },
+  {
+    "num": 32,
+    "name": "Nevada",
+    "abbreviation": "NV",
+    "schools": 4
+  },
+  {
+    "num": 33,
+    "name": "New Hampshire",
+    "abbreviation": "NH",
+    "schools": 12
+  },
+  {
+    "num": 34,
+    "name": "New Jersey",
+    "abbreviation": "NJ",
+    "schools": 28
+  },
+  {
+    "num": 35,
+    "name": "New Mexico",
+    "abbreviation": "NM",
+    "schools": 5
+  },
+  {
+    "num": 36,
+    "name": "New York",
+    "abbreviation": "NY",
+    "schools": 125
+  },
+  {
+    "num": 37,
+    "name": "North Carolina",
+    "abbreviation": "NC",
+    "schools": 55
+  },
+  {
+    "num": 38,
+    "name": "North Dakota",
+    "abbreviation": "ND",
+    "schools": 8
+  },
+  {
+    "num": 39,
+    "name": "Ohio",
+    "abbreviation": "OH",
+    "schools": 58
+  },
+  {
+    "num": 40,
+    "name": "Oklahoma",
+    "abbreviation": "OK",
+    "schools": 22
+  },
+  {
+    "num": 41,
+    "name": "Oregon",
+    "abbreviation": "OR",
+    "schools": 21
+  },
+  {
+    "num": 42,
+    "name": "Pennsylvania",
+    "abbreviation": "PA",
+    "schools": 116
+  },
+  {
+    "num": 44,
+    "name": "Rhode Island",
+    "abbreviation": "RI",
+    "schools": 9
+  },
+  {
+    "num": 45,
+    "name": "South Carolina",
+    "abbreviation": "SC",
+    "schools": 28
+  },
+  {
+    "num": 46,
+    "name": "South Dakota",
+    "abbreviation": "SD",
+    "schools": 11
+  },
+  {
+    "num": 47,
+    "name": "Tennessee",
+    "abbreviation": "TN",
+    "schools": 40
+  },
+  {
+    "num": 48,
+    "name": "Texas",
+    "abbreviation": "TX",
+    "schools": 65
+  },
+  {
+    "num": 49,
+    "name": "Utah",
+    "abbreviation": "UT",
+    "schools": 6
+  },
+  {
+    "num": 50,
+    "name": "Vermont",
+    "abbreviation": "VT",
+    "schools": 16
+  },
+  {
+    "num": 51,
+    "name": "Virginia",
+    "abbreviation": "VA",
+    "schools": 40
+  },
+  {
+    "num": 53,
+    "name": "Washington",
+    "abbreviation": "WA",
+    "schools": 19
+  },
+  {
+    "num": 54,
+    "name": "West Virginia",
+    "abbreviation": "WV",
+    "schools": 18
+  },
+  {
+    "num": 55,
+    "name": "Wisconsin",
+    "abbreviation": "WI",
+    "schools": 35
+  },
+  {
+    "num": 56,
+    "name": "Wyoming",
+    "abbreviation": "WY",
+    "schools": 1
+  }
+]

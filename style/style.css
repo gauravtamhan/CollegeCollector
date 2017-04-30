@@ -1,0 +1,409 @@
+
+/* Styling when browser is too small */
+.temporary {
+    width: 700px;
+    height: 100px;
+    margin: auto;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+.browserWarning {
+    font-weight: 200;
+}
+
+/* Page Styling */
+h1.title {
+    margin-left: 3%;
+    font-weight: 400;
+    font-size: 42px;
+    display: inline-block;
+}
+
+h1.title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+small.subtitle {
+    font-size: 22px;
+    font-weight: 200;
+}
+
+.searchbar {
+    float: right;
+    position: relative;
+    width: 200px;
+    display: inline-block;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+.form-control:focus {
+    border-color: #505050;
+    box-shadow: inset 0 1px 1px rgba(250, 250, 250, 0.075), 0 0 8px rgba(250, 250, 250, 0.6);
+}
+
+.btn:focus, .btn:active {
+    outline: none !important;
+}
+
+input, input[type="search"]{
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-width: 1px 1px 1px 1px !important;
+    /*padding: 10px !important;*/
+}
+
+div.search {
+    left: initial !important;
+    width: 296px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.state-list {
+    max-height: 240px;
+    overflow-y: scroll;
+}
+
+.resultsUlList {
+    list-style: none;
+    padding: 0 0 0 0;
+}
+
+.liElement:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+ul.resultsUlList {
+    margin-bottom: 0;
+}
+
+.resultsUlList li {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 20px;
+}
+
+.placeholder {
+    color: #a7a7a7;
+    font-weight: 200;
+    font-size: 18px;
+    margin-top: 16px;
+    margin-left: 12px;
+    display: inline-block;
+}
+
+.content {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.regular {
+    text-align: center;
+    color: #505050;
+    font-weight: 200;
+    margin: 20px;
+}
+
+.temp {
+    text-align: center;
+    color: #a7a7a7;
+    font-weight: 100;
+    margin: 20px;
+    cursor: default;
+}
+
+#numSchools {
+    font-weight: 300;
+    color: #505050;
+}
+
+.school_name {
+    text-align: left;
+    color: #6d7993;
+}
+
+.school_name:hover {
+    cursor: pointer;
+}
+
+p#loc {
+    text-align: left;
+    color: #505050;
+    font-weight: 200;
+}
+
+#map {
+    float: left;
+    position: relative;
+    margin-left: 2%;
+    width: 772px;
+    height: 502px;
+}
+
+.info {
+    float: right;
+    position: relative;
+    margin-right: 2%;
+    margin-bottom: 4%;
+    width: 368px;
+    height: 502px;
+    border: 1px solid #999;
+}
+
+.combo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+button.x {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+p.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    font-weight: 100;
+}
+
+.school_selector {
+    border: 1px solid white;
+    width: 100%;
+    height: 77px;
+}
+
+.school_selector h3 {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.school_selector p#loc {
+    font-size: 12px;
+    margin-left: 15px;
+    margin-top: 2px;
+}
+
+button.cancel {
+    vertical-align: text-bottom;
+    margin-top: 16px;
+    margin-right: 40px;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+button:focus {
+    outline: none;
+}
+
+.selection_area {
+    margin: 0 2% 12px 2%;
+    font-weight: 200;
+}
+
+.selection_area>p {
+    margin-bottom: 4px;
+}
+
+.label_holder {
+    width: 640px;
+    display: inline-block;
+}
+
+button.combo {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.btn[disabled] {
+    cursor: initial;
+    opacity: 0;
+}
+
+.label {
+    display: inline-block;
+    line-height: normal;
+    margin: 0 2px;
+}
+
+button.deselect {
+    float: left;
+    vertical-align: middle;
+    font-size: 16px;
+    margin-right: 4px;
+    line-height: 0.6;
+}
+
+
+/* Map Styling */
+.background {
+    fill: none;
+    pointer-events: all;
+}
+
+.state { /* each individual state */
+    transition: fill 0.5s ease;
+}
+
+.state:hover {
+    /*fill: #c6c6c6;*/
+    /*fill: #c4d1c4;          !* light green hover *!*/
+    fill: #576075;          /* dark blue hover */
+}
+
+#states {
+    /*fill: #dbdbdb;*/
+    /*fill: #d2dcd2;          !* light green map *!*/
+    /*fill: #4c495a;          !* dark grey map *!*/
+    fill: #6d7993;          /* dark blue map */
+}
+
+#state-borders {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+.dots {
+    /*fill: #464646;          !* light green map: dark grey dots*!*/
+    /*fill: #c06c84;          !* dark grey map: pink dots *!*/
+    /*fill: #efefef;          !* dark blue map: off white dots *!*/
+    fill: #f4decb;          /* dark blue map: sandy dots */
+    /*stroke: #585858;*/
+    opacity: 0.95;
+    cursor: pointer;
+}
+
+
+
+/* Charts Page Styling */
+.chartbox {
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid white;
+    height: 902px;
+    padding: 20px;
+}
+
+.heading {
+    color: #505050;
+}
+
+.spacing {
+    margin-top: 50px;
+}
+
+hr.hr-style {
+    width: 300px;
+    margin-left: 0;
+    border-top: 1px solid #8c8b8b;
+    border-bottom: 1px solid #fff;
+}
+
+.table_div {
+    margin-top: 1%;
+    margin-bottom: 70px;
+
+}
+
+td {
+    white-space:pre
+}
+
+.SAT_div {
+    float: left;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 3px 3px 15px 2px #000;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.ACT_div {
+    float: right;
+    position: relative;
+    margin-bottom: 70px;
+    margin-right: 15px;
+}
+
+.admission_div {
+    float: left;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.retention_div {
+    float: right;
+    position: relative;
+    margin-bottom: 70px;
+    margin-right: 15px;
+}
+
+.ratio_div {
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+.pie-container {
+    display: inline-block;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+/* align glyph */
+.left-addon .glyphicon  { left:  0;}
+.right-addon .glyphicon { right: 0;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
