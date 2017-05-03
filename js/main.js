@@ -224,7 +224,7 @@ function clicked(d) {
 
                 n.srcElement.style.color = "#3cc47c";
                 d3.selectAll(".dots").style("fill", function (f) {
-                    if (f.INSTNM === n.toElement.innerHTML) {
+                    if (f.INSTNM === n.toElement.innerText) {
                         return "#3cc47c";
                     } else {
                         return '#f4decb';
@@ -234,7 +234,7 @@ function clicked(d) {
             institutions[i].addEventListener("click", function (n) {
                 var element;
                 d3.selectAll(".dots").each(function (f) {
-                   if (f.INSTNM === n.toElement.innerHTML) {
+                   if (f.INSTNM === n.toElement.innerText) {
                        element = f;
                    }
                 });
@@ -480,7 +480,7 @@ function clicked(d) {
 
                         n.srcElement.style.color = "#3cc47c";
                         d3.selectAll(".dots").style("fill", function (f) {
-                            if (f.INSTNM === n.toElement.innerHTML) {
+                            if (f.INSTNM === n.toElement.innerText) {
                                 return "#3cc47c";
                             } else {
                                 return '#f4decb';
@@ -490,7 +490,7 @@ function clicked(d) {
                     institutions[i].addEventListener("click", function (n) {
                         var element;
                         d3.selectAll(".dots").each(function (f) {
-                            if (f.INSTNM === n.toElement.innerHTML) {
+                            if (f.INSTNM === n.toElement.innerText) {
                                 element = f;
                             }
                         });
@@ -560,7 +560,6 @@ function visitWebsite(url) {
 
 
 function buttonClicked() {
-    console.log("Button was clicked");
     $("#map").fadeOut().css("width", "0px");
     $("#info").empty().removeClass("info").addClass("chartbox");
     $(".searchbar").fadeOut();
