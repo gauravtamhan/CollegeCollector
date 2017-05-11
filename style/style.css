@@ -337,12 +337,59 @@ button.deselect {
     /*border-radius: 4px;*/
 }
 
+.card {
+    margin-top: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    background-color: #fff;
+}
+
+.clear {
+    clear: both;
+}
+
+.small-card {
+    margin-top: 2%;
+    /*margin-left: 2%;*/
+    /*margin-right: 2%;*/
+    margin-bottom: 2%;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    background-color: #fff;
+    height: 575px;
+}
+
+.left {
+    margin-left: 2%;
+    float: left;
+    position: relative;
+}
+
+.right {
+    margin-right: 2%;
+    float: right;
+    position: relative;
+}
+
+.card-title {
+    padding-top: 1px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f2f2f2;
+}
+
 .heading {
-    color: #505050;
+    color: #5d5d5d;
+    margin-left: 25px;
+    font-weight: 400;
 }
 
 .spacing {
     margin-top: 50px;
+}
+
+.bottom-space {
+    margin-bottom: 4%;
 }
 
 hr.hr-style {
@@ -353,9 +400,13 @@ hr.hr-style {
 }
 
 .table_div {
-    margin-top: 1%;
-    margin-bottom: 70px;
+    /*margin-top: 1%;*/
+    /*margin-bottom: 70px;*/
+    padding: 35px 20px 20px 20px;
+}
 
+.table.no-border tr td, .table.no-border tr th {
+    border-width: 0;
 }
 
 td {
@@ -363,9 +414,9 @@ td {
 }
 
 .SAT_div {
-    float: left;
-    position: relative;
-    margin-bottom: 70px;
+    /*float: left;*/
+    /*position: relative;*/
+    /*margin-bottom: 70px;*/
 }
 
 .toolTip {
@@ -399,28 +450,29 @@ td {
 }
 
 .ACT_div {
-    float: right;
-    position: relative;
-    margin-bottom: 70px;
-    margin-right: 15px;
+    /*float: right;*/
+    /*position: relative;*/
+    /*margin-bottom: 70px;*/
+    /*margin-right: 15px;*/
 }
 
 .admission_div {
-    float: left;
-    position: relative;
-    margin-bottom: 70px;
+    /*float: left;*/
+    /*position: relative;*/
+    /*margin-bottom: 70px;*/
 }
 
 .retention_div {
-    float: right;
-    position: relative;
-    margin-bottom: 70px;
-    margin-right: 15px;
+    /*float: right;*/
+    /*position: relative;*/
+    /*margin-bottom: 70px;*/
+    /*margin-right: 15px;*/
 }
 
 .ratio_div {
+    padding: 3% 0;
     width: 100%;
-    margin-bottom: 70px;
+    /*margin-bottom: 70px;*/
 }
 
 .pie-container {

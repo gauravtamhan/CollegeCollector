@@ -566,9 +566,10 @@ function visitWebsite(url) {
 
 
 function buttonClicked() {
-    $("#map").fadeOut().css("width", "0px");
-    $("#info").empty().removeClass("info").addClass("chartbox");
-    $(".searchbar").fadeOut();
+    $("#map").hide();
+    $("#info").hide();
+    // $("#info").empty().removeClass("info").addClass("chartbox");
+    $(".searchbar").hide();
     $(".selection_area").hide();
 
     compare(selected_schools);

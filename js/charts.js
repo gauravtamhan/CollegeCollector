@@ -41,13 +41,17 @@ function compare(data) {
 }
 
 function makeTable(data) {
-    d3.select("#info").append("h2").attr("class", "heading").html("General Information");
+    var card = d3.select("body").append("div").attr("class", "card");
 
-    var table_div = d3.select("#info").append("div")
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("General Information");
+
+    var table_div = card.append("div")
         .attr("class", "table_div");
 
     var table = table_div.append("table")
-        .attr("class", "table table-hover table-bordered");
+        .attr("class", "table table-bordered table-hover");
 
     var thead = table.append("thead").append("tr");
 
@@ -77,10 +81,14 @@ function makeTable(data) {
 }
 
 function makeSAT(data) {
-    d3.select("#info").append("h2").attr("class", "heading").html("Average Acceptance Scores");
 
-    d3.select("#info").append("div").attr("class", "SAT_div");
-    d3.select(".SAT_div").append("h3").html("SAT");
+    var card = d3.select("body").append("div").attr("class", "small-card left");
+
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("SAT Acceptance Scores");
+
+    card.append("div").attr("class", "SAT_div");
 
     var width = 550;
     var height = 500;
@@ -294,8 +302,13 @@ function makeSAT(data) {
 }
 
 function makeACT(data) {
-    d3.select("#info").append("div").attr("class", "ACT_div");
-    d3.select(".ACT_div").append("h3").html("ACT");
+    var card = d3.select("body").append("div").attr("class", "small-card right act");
+
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("ACT Acceptance Scores");
+
+    d3.select(".act").append("div").attr("class", "ACT_div");
 
     var width = 550;
     var height = 500;
@@ -480,10 +493,14 @@ function makeACT(data) {
 }
 
 function makeAdmission(data) {
-    d3.select("#info").append("h2").attr("class", "heading spacing").html("Admission/Retention Rates");
 
-    d3.select("#info").append("div").attr("class", "admission_div");
-    d3.select(".admission_div").append("h3").html("Admission Rate");
+    var card = d3.select("body").append("div").attr("class", "small-card left");
+
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("Admission Rates");
+
+    card.append("div").attr("class", "admission_div");
 
     var width = 550;
     var height = 500;
@@ -575,8 +592,13 @@ function makeAdmission(data) {
 }
 
 function makeRetention(data) {
-    d3.select("#info").append("div").attr("class", "retention_div");
-    d3.select(".retention_div").append("h3").html("Retention Rate");
+    var card = d3.select("body").append("div").attr("class", "small-card right ret bottom-space");
+
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("Retention Rates");
+
+    d3.select(".ret").append("div").attr("class", "retention_div");
 
     var width = 550;
     var height = 500;
@@ -668,9 +690,14 @@ function makeRetention(data) {
 }
 
 function makePie(data) {
-    d3.select("#info").append("h2").attr("class", "heading spacing").html("Gender Ratio");
 
-    d3.select("#info").append("div").attr("class", "ratio_div");
+    var card = d3.select("body").append("div").attr("class", "card clear");
+
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("Male to Female Ratio");
+
+    card.append("div").attr("class", "ratio_div");
 
     var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
 
@@ -767,9 +794,13 @@ function makePie(data) {
 }
 
 function makeEarnings(data) {
-    d3.select("#info").append("h2").attr("class", "heading spacing").html("Earnings Post Graduation");
+    var card = d3.select("body").append("div").attr("class", "card bottom-space");
 
-    d3.select("#info").append("div").attr("class", "earnings_div");
+    var card_title = card.append("div").attr("class", "card-title");
+
+    card_title.append("h2").attr("class", "heading").html("Earnings Post Graduation");
+
+    card.append("div").attr("class", "earnings_div");
 
     var width = 1120;
     var height = 600;
