@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <div class="page-header" style="margin-bottom: 20px; cursor: default;">
+    <div class="page-header">
         <h1 class="title"><a href="javascript:history.go(0)">College Collector </a><small class="subtitle"> A new way to research college admissions.</small></h1>
         <div class="searchbar">
                 <div class="inner-addon left-addon">
@@ -37,19 +37,22 @@
                 </div>
         </div>
     </div>
-
+    <div style="height: 95px; margin-bottom: 20px"></div>
     <div class="selection_area">
-        <p>Selected Schools:</p>
+        <!--<p>Selected Schools:</p>-->
         <div class="label_holder">
         </div>
-        <button type="button" onclick="buttonClicked()" id="compare_button" class="btn btn-default btn-sm combo">Compare</button>
+
+        <div class="button_holder">
+            <button type="button" onclick="buttonClicked()" id="compare_button" class="btn btn-default btn-sm combo">Compare</button>
+        </div>
     </div>
 
     <div id="map"></div>
 
     <div id="info" class="info">
         <h2 id="state_name" class="temp">State Name</h2>
-        <p class="title">Number of Schools: <span id="numSchools"></span></p>
+        <p id="count" class="title">Number of Schools: <span id="numSchools"></span></p>
 
         <div class="content">
         </div>

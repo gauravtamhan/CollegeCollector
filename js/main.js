@@ -48,14 +48,14 @@ String.prototype.trunc =
 
 d3.select("#compare_button").attr("disabled", "disabled");
 
-var width = 772,
-    height = 500,
+var width = 722, // 772
+    height = 450, // 500
     centered;
 
 var selected_schools = [];
 
 var projection = d3.geo.albersUsa()
-    .scale(1070)
+    .scale(1000) // 1070
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
@@ -116,6 +116,9 @@ d3.json("data/us.json", function(error, us) {
                 d3.select("#state_name")
                     .classed("temp", false);
 
+                d3.select("#count")
+                    .style("opacity", 1);
+
                 d3.select("#numSchools").html(d.schools);
 
                 d3.select("#state_name")
@@ -130,6 +133,9 @@ d3.json("data/us.json", function(error, us) {
             if (k === 1) {
                 d3.select('#state_name')
                     .text(d.name);
+
+                d3.select("#count")
+                    .style("opacity", 0);
 
                 d3.select("#numSchools").html('');
 
@@ -610,6 +616,8 @@ function showResults() {
             element.append("li")
                 .attr("class", "liElement")
                 .on("click", function (f) {
+                    console.log(f);
+                    console.log(selected_schools.indexOf(f));
                     if (selected_schools.length < 10 && selected_schools.indexOf(f) < 0) {
                         selected_schools.push(f);
                         var labelBox = d3.select(".label_holder");
