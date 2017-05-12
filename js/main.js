@@ -616,8 +616,8 @@ function showResults() {
             element.append("li")
                 .attr("class", "liElement")
                 .on("click", function (f) {
-                    console.log(f);
-                    console.log(selected_schools.indexOf(f));
+                    // console.log(f);
+                    // console.log(selected_schools.indexOf(f));
                     if (selected_schools.length < 10 && selected_schools.indexOf(f) < 0) {
                         selected_schools.push(f);
                         var labelBox = d3.select(".label_holder");

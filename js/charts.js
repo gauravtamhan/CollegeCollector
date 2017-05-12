@@ -90,215 +90,65 @@ function makeSAT(data) {
 
     card.append("div").attr("class", "SAT_div");
 
-    var width = 550;
-    var height = 500;
+    var margin = {top: 20, right: 30, bottom: 40, left: 40},
+        width = +d3.select(".SAT_div").style("width").slice(0, -2),
+        height = 530;
 
     var svg = d3.select(".SAT_div")
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
-    var bars = svg.append('g');
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
 
-    var yDom = ["Writing", "Reading", "Math", "Average (R&M)"];
+    // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
-    var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+    // var colors = ["#2b4c5a", "#375f5e", "#447161", "#508465", "#539769", "#6baa6d", "#78bd70", "#86d075", "#94e475", "#a2f77c"];
 
-    var xScale = d3.scale.linear().range([60, (width - 20)]);
-    var yScale = d3.scale.ordinal().rangeRoundBands([0, (height - 60)], 0.3);
+    function myData() {
+        var vals = [];
+        for(var i = 0; i < data.length; i++) {
+            vals.push(
+                {
+                    key: data[i].INSTNM,
+                    color: colors[i],
+                    values: [
+                        {x: 0, y: data[i].SATMTMID === "NULL" ? 0 : +data[i].SATMTMID},
+                        {x: 1, y: data[i].SATVRMID === "NULL" ? 0 : +data[i].SATVRMID},
+                        {x: 2, y: data[i].SATWRMID === "NULL" ? 0 : +data[i].SATWRMID}
+                    ]
+                }
+            );
+        }
+        return vals;
+    }
 
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-    var yAxis = d3.svg.axis().scale(yScale).orient('left');
+    nv.addGraph(function() {
+        var chart = nv.models.multiBarChart()
+            .margin({ top: 80, right: 40, bottom: 80, left: 80 })
+            .showControls(false)
+            .groupSpacing(0.2)
+            .showLegend(true)
+            .yDomain([0,800]);
 
-    xScale.domain([0, 1600]);
+        chart.xAxis
+            .axisLabel("Category")
+            .tickFormat(function (d) {
+                var labels = ["Math", "Reading", "Writing"];
+                return labels[d];
+            });
 
-    yScale.domain(yDom);
+        chart.yAxis
+            .axisLabel("Score")
+            .tickFormat(d3.format(','));
 
-    var z = ["#4575b3", "#e57e00", "#5fa034", "#ba2924", "#8964bb", "#7f574b", "#cc74bf", "#7e7e7e", "#bbbd28", "#69bdcf"];
+        svg.datum(myData())
+            .call(chart);
 
-    bars.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(60, 0)')
-        .call(yAxis)
-        .selectAll("text")
-        .style("text-anchor", "middle")
-        .attr("dy", "-10")
-        .attr("dx", yScale.rangeBand() / data.length / 2 - 3)
-        .attr("transform", "rotate(-90)" );
+        nv.utils.windowResize(chart.update);
 
-    bars.append('g')
-        .attr('class', 'axis')
-        .attr('transform', "translate(0," + (height - 60) + ")")
-        .call(xAxis);
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Reading') + (i * yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['SATVRMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Reading Score: </b>" + d["SATVRMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Math') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['SATMTMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Math Score: </b>" + d["SATMTMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Writing') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['SATWRMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Writing Score: </b>" + d["SATWRMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Average (R&M)') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['SAT_AVG']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Reading + Math Score: </b>" + d["SAT_AVG"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    svg.append("text")
-        .style("text-anchor", "middle")
-        .attr("x", width / 2 + 10)
-        .attr("y", height - 20)
-        .text("Score (Out of 1600 for Average | 800 for the Rest)");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (height / 2) + 30)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("Category");
-
-    var schoolNames = [];
-    data.forEach(function (d) {
-        schoolNames.push(d.INSTNM);
+        return chart;
     });
-
-    var legend = svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "end")
-        .selectAll("g")
-        .data(schoolNames)
-        .enter().append("g")
-        .attr("transform", function(d, i) { return "translate(2," + i * 20 + ")"; });
-
-    legend.append("rect")
-        .attr("x", width - 19)
-        .attr("width", 19)
-        .attr("height", 19)
-        .attr("fill", function (d, i) {
-            return z[i];
-        });
-
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9.5)
-        .attr("dy", "0.32em")
-        .text(function(d) { return d; });
 }
 
 function makeACT(data) {
@@ -310,186 +160,64 @@ function makeACT(data) {
 
     d3.select(".act").append("div").attr("class", "ACT_div");
 
-    var width = 550;
-    var height = 500;
+    var margin = {top: 20, right: 30, bottom: 40, left: 40},
+        width = +d3.select(".ACT_div").style("width").slice(0, -2),
+        height = 530;
 
     var svg = d3.select(".ACT_div")
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
-    var bars = svg.append('g');
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
 
-    var yDom = ["Writing", "English", "Math", "Cumulative"];
+    // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
-    var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+    // var colors = ["#2b4c5a", "#375f5e", "#447161", "#508465", "#539769", "#6baa6d", "#78bd70", "#86d075", "#94e475", "#a2f77c"];
 
-    var xScale = d3.scale.linear().range([60, (width - 20)]);
-    var yScale = d3.scale.ordinal().rangeRoundBands([0, (height - 60)], 0.3);
+    function myData() {
+        var vals = [];
+        for(var i = 0; i < data.length; i++) {
+            vals.push(
+                {
+                    key: data[i].INSTNM,
+                    color: colors[i],
+                    values: [
+                        {x: 0, y: data[i].ACTMTMID === "NULL" ? 0 : +data[i].ACTMTMID},
+                        {x: 1, y: data[i].ACTENMID === "NULL" ? 0 : +data[i].ACTENMID},
+                        {x: 2, y: data[i].ACTWRMID === "NULL" ? 0 : +data[i].ACTWRMID}
+                    ]
+                }
+            );
+        }
+        return vals;
+    }
 
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-    var yAxis = d3.svg.axis().scale(yScale).orient('left');
+    nv.addGraph(function() {
+        var chart = nv.models.multiBarChart()
+            .margin({ top: 80, right: 40, bottom: 80, left: 80 })
+            .showControls(false)
+            .groupSpacing(0.2)
+            .showLegend(true)
+            .yDomain([0,36]);
 
-    xScale.domain([0, 36]);
+        chart.xAxis
+            .axisLabel("Category")
+            .tickFormat(function (d) {
+                var labels = ["Math", "English", "Writing"];
+                return labels[d];
+            });
 
-    yScale.domain(yDom);
+        chart.yAxis
+            .axisLabel("Score");
 
-    var z = ["#4575b3", "#e57e00", "#5fa034", "#ba2924", "#8964bb", "#7f574b", "#cc74bf", "#7e7e7e", "#bbbd28", "#69bdcf"];
+        svg.datum(myData())
+            .call(chart);
 
-    bars.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(60, 0)')
-        .call(yAxis)
-        .selectAll("text")
-        .style("text-anchor", "middle")
-        .attr("dy", "-10")
-        .attr("dx", yScale.rangeBand() / data.length / 2 - 3)
-        .attr("transform", "rotate(-90)" );
+        nv.utils.windowResize(chart.update);
 
-    bars.append('g')
-        .attr('class', 'axis')
-        .attr('transform', "translate(0," + (height - 60) + ")")
-        .call(xAxis);
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('English') + (i * yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['ACTENMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average English Score: </b>" + d["ACTENMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Math') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['ACTMTMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Math Score: </b>" + d["ACTMTMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Writing') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['ACTWRMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Writing Score: </b>" + d["ACTWRMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-
-    bars.append('g')
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .style("fill", function(d, i) { return z[i]; })
-        .attr('x', 60)
-        .attr('y', function(d, i) {
-            return yScale('Cumulative') + (i*yScale.rangeBand() / data.length);
-        })
-        .attr('width', function(d) {
-            return xScale(d['ACTCMMID']) - 60;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand() / data.length;
-        })
-        .on("mousemove", function(d){
-            divTooltip.style("left", d3.event.pageX+10+"px");
-            divTooltip.style("top", d3.event.pageY-25+"px");
-            divTooltip.style("display", "inline-block");
-            var x = d3.event.pageX, y = d3.event.pageY;
-            var elements = document.querySelectorAll(':hover');
-            l = elements.length;
-            l = l-1;
-            elementData = elements[l].__data__;
-            divTooltip.html("<b>Average Cumulative Score: </b>" + d["ACTCMMID"]);
-        })
-        .on("mouseout", function(d){
-            divTooltip.style("display", "none");
-        });
-    svg.append("text")
-        .style("text-anchor", "middle")
-        .attr("x", width / 2 + 10)
-        .attr("y", height - 20)
-        .text("Score (Out of 12 for Writing | 36 for the Rest)");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (height / 2) + 30)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("Category");
+        return chart;
+    });
 }
 
 function makeAdmission(data) {
@@ -502,7 +230,7 @@ function makeAdmission(data) {
 
     card.append("div").attr("class", "admission_div");
 
-    var margin = {top: 20, right: 30, bottom: 90, left: 40},
+    var margin = {top: 20, right: 30, bottom: 90, left: 60},
         width = +d3.select(".admission_div").style("width").slice(0, -2) - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
 
@@ -588,7 +316,7 @@ function makeRetention(data) {
 
     d3.select(".ret").append("div").attr("class", "retention_div");
 
-    var margin = {top: 20, right: 30, bottom: 90, left: 40},
+    var margin = {top: 20, right: 30, bottom: 90, left: 60},
         width = +d3.select(".retention_div").style("width").slice(0, -2) - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
 
@@ -778,122 +506,63 @@ function makeEarnings(data) {
 
     card.append("div").attr("class", "earnings_div");
 
-    var width = 1120;
-    var height = 600;
+    var margin = {top: 20, right: 30, bottom: 40, left: 40},
+        width = +d3.select(".earnings_div").style("width").slice(0, -2),
+        height = 570;
 
     var svg = d3.select(".earnings_div")
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
-    var lines = svg.append('g');
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
+    // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
-    var z = ["#4575b3", "#e57e00", "#5fa034", "#ba2924", "#8964bb", "#7f574b", "#cc74bf", "#7e7e7e", "#bbbd28", "#69bdcf"];
+    // var colors = ["#2b4c5a", "#375f5e", "#447161", "#508465", "#539769", "#6baa6d", "#78bd70", "#86d075", "#94e475", "#a2f77c"];
 
-    var xScale = d3.scale.ordinal().rangeBands([80, (width - 60)]);
-    var yScale = d3.scale.linear().range([40, (height - 60)]);
-
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-    var yAxis = d3.svg.axis().scale(yScale).orient('left');
-
-    var lineData = [];
-    for (var i=0; i < data.length; i++) {
-        lineData.push([
-            {
-                "earnings": data[i].MN_EARN_WNE_P6,
-                "year": "6 Years"
-            }, {
-                "earnings": data[i].MN_EARN_WNE_P7,
-                "year": "7 Years"
-            }, {
-                "earnings": data[i].MN_EARN_WNE_P8,
-                "year": "8 Years"
-            }, {
-                "earnings": data[i].MN_EARN_WNE_P9,
-                "year": "9 Years"
-            }, {
-                "earnings": data[i].MN_EARN_WNE_P10,
-                "year": "10 Years"
-            }
-        ]);
+    function myData() {
+        var vals = [];
+        for(var i = 0; i < data.length; i++) {
+            vals.push(
+                {
+                    key: data[i].INSTNM,
+                    color: colors[i],
+                    values: [
+                        {x: 6, y: +data[i].MN_EARN_WNE_P6},
+                        {x: 7, y: +data[i].MN_EARN_WNE_P7},
+                        {x: 8, y: +data[i].MN_EARN_WNE_P8},
+                        {x: 9, y: +data[i].MN_EARN_WNE_P9},
+                        {x: 10, y: +data[i].MN_EARN_WNE_P10}
+                    ]
+                }
+            );
+        }
+        return vals;
     }
 
-    var xDom = ["6 Years", "7 Years", "8 Years", "9 Years", "10 Years"];
+    nv.addGraph(function() {
+        var chart = nv.models.lineChart()
+            .margin({ top: 80, right: 80, bottom: 80, left: 80 })
+            .useInteractiveGuideline(true)
+            .interpolate("cardinal")
+            .showLegend(true)
+            .showYAxis(true)
+            .showXAxis(true);
 
-    xScale.domain(xDom);
+        chart.xAxis
+            .axisLabel("Years After Graduation")
+            .tickFormat(function (d) {
+                return d + " Years";
+            });
 
-    yScale.domain([d3.max(data, function (d) {
-        return +d["MN_EARN_WNE_P10"];
+        chart.yAxis
+            .tickFormat(d3.format('$,'));
 
-    }), d3.min(data, function (d) {
-        return +d["MN_EARN_WNE_P6"] - 5000;
-    })]);
+        svg.datum(myData())
+            .call(chart);
 
-    lines.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(80, 0)')
-        .call(yAxis);
+        nv.utils.windowResize(chart.update);
 
-    lines.append('g')
-        .attr('class', 'axis')
-        .attr('transform', "translate(0," + (height - 60) + ")")
-        .call(xAxis);
-
-    var lineGen = d3.svg.line()
-        .x(function(d) {
-            return xScale(d.year) + 100;
-        })
-        .y(function(d) {
-            return yScale(d.earnings);
-        });
-
-    lineData.forEach(function (d, i) {
-        svg.select('g')
-            .append('svg:path')
-            .attr('d', lineGen(lineData[i]))
-            .attr('stroke', z[i])
-            .attr('stroke-width', 2)
-            .attr('fill', 'none');
+        return chart;
     });
-
-    svg.append("text")
-        .style("text-anchor", "middle")
-        .attr("x", width / 2)
-        .attr("y", height - 20)
-        .text("Years After Graduation");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("Salary ($)");
-
-    var schoolNames = [];
-    data.forEach(function (d) {
-        schoolNames.push(d.INSTNM);
-    });
-
-    var legend = svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "end")
-        .selectAll("g")
-        .data(schoolNames)
-        .enter().append("g")
-        .attr("transform", function(d, i) { return "translate(2," + i * 20 + ")"; });
-
-    legend.append("rect")
-        .attr("x", width - 19)
-        .attr("width", 19)
-        .attr("height", 19)
-        .attr("fill", function (d, i) {
-            return z[i];
-        });
-
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9.5)
-        .attr("dy", "0.32em")
-        .text(function(d) { return d; });
 }
