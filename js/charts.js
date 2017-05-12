@@ -502,66 +502,67 @@ function makeAdmission(data) {
 
     card.append("div").attr("class", "admission_div");
 
-    var width = 550;
-    var height = 500;
+    var margin = {top: 20, right: 30, bottom: 90, left: 40},
+        width = +d3.select(".admission_div").style("width").slice(0, -2) - margin.left - margin.right,
+        height = 470 - margin.top - margin.bottom;
 
     var svg = d3.select(".admission_div")
         .append('svg')
-        .attr('width', width)
-        .attr('height', height);
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
 
-    var bars = svg.append('g');
-
-    var xScale = d3.scale.linear().range([85, (width - 20)]);
-    var yScale = d3.scale.ordinal().rangeRoundBands([0, (height - 60)], 0.1);
-
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-    var yAxis = d3.svg.axis().scale(yScale).orient('left');
-
-    var yDom = [];
-    data.forEach(function (d) {
-        yDom.push(d.INSTNM);
-    });
-
-    xScale.domain([0, 100]);
-
-    yScale.domain(yDom);
+    var chart = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
 
-    bars.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(85, 0)')
-        .call(yAxis)
+    if (data.length < 4) {
+        var x = d3.scale.ordinal()
+            .domain(data.map(function (d) { return d.INSTNM }))
+            .rangeRoundBands([0, width], .5);
+    } else {
+        var x = d3.scale.ordinal()
+            .domain(data.map(function (d) { return d.INSTNM }))
+            .rangeRoundBands([0, width], .1);
+    }
+
+    var y = d3.scale.linear()
+        .domain([0, 1])
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10, "%");
+
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
         .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", yScale.rangeBand() / data.length / 2 + 5)
-        .attr("transform", function(d) {
-            return "translate(" + this.getBBox().height*-2 + ",0)rotate(-65)";
-        })
-        .style("font-size", "6px");
+        .style("text-anchor", "start")
+        .attr("x", 9)
+        .attr("y", 0)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("font-size", "11px");
 
-    bars.append('g')
-        .attr('class', 'axis')
-        .attr('transform', "translate(0," + (height - 60) + ")")
-        .call(xAxis);
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
 
-    bars.append('g')
-        .selectAll('.bar')
+    chart.selectAll(".adm-bar")
         .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .attr('x', 85)
-        .attr('y', function(d) {
-            return yScale(d.INSTNM);
-        })
-        .attr('width', function(d) {
-            return xScale(d['ADM_RATE'] * 100) - 85;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand();
-        })
+        .enter().append("rect")
+        .attr("class", "adm-bar")
+        .attr("x", function(d) { return x(d.INSTNM); })
+        .attr("y", function(d) { return y(+d.ADM_RATE); })
+        .attr("height", function(d) { return height - y(+d.ADM_RATE) - 1; })
+        .attr("width", x.rangeBand())
         .on("mousemove", function(d){
             divTooltip.style("left", d3.event.pageX+10+"px");
             divTooltip.style("top", d3.event.pageY-25+"px");
@@ -571,24 +572,11 @@ function makeAdmission(data) {
             l = elements.length;
             l = l-1;
             elementData = elements[l].__data__;
-            divTooltip.html("<b>Admission Rate: </b>" + (d["ADM_RATE"] * 100).toFixed(2) + "%");
+            divTooltip.html("<b>" + (d.INSTNM) + "</b>" + " (" + (d["ADM_RATE"] * 100).toFixed(2) + "%)");
         })
         .on("mouseout", function(d){
             divTooltip.style("display", "none");
         });
-
-    svg.append("text")
-        .style("text-anchor", "middle")
-        .attr("x", width / 2 + 30)
-        .attr("y", height - 20)
-        .text("Admission Rate (%)");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (height / 2) + 30)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("School");
 }
 
 function makeRetention(data) {
@@ -600,66 +588,67 @@ function makeRetention(data) {
 
     d3.select(".ret").append("div").attr("class", "retention_div");
 
-    var width = 550;
-    var height = 500;
+    var margin = {top: 20, right: 30, bottom: 90, left: 40},
+        width = +d3.select(".retention_div").style("width").slice(0, -2) - margin.left - margin.right,
+        height = 470 - margin.top - margin.bottom;
 
     var svg = d3.select(".retention_div")
         .append('svg')
-        .attr('width', width)
-        .attr('height', height);
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
 
-    var bars = svg.append('g');
-
-    var xScale = d3.scale.linear().range([85, (width - 20)]);
-    var yScale = d3.scale.ordinal().rangeRoundBands([0, (height - 60)], 0.1);
-
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-    var yAxis = d3.svg.axis().scale(yScale).orient('left');
-
-    var yDom = [];
-    data.forEach(function (d) {
-        yDom.push(d.INSTNM);
-    });
-
-    xScale.domain([0, 100]);
-
-    yScale.domain(yDom);
+    var chart = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
 
-    bars.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(85, 0)')
-        .call(yAxis)
+    if (data.length < 4) {
+        var x = d3.scale.ordinal()
+            .domain(data.map(function (d) { return d.INSTNM }))
+            .rangeRoundBands([0, width], .5);
+    } else {
+        var x = d3.scale.ordinal()
+            .domain(data.map(function (d) { return d.INSTNM }))
+            .rangeRoundBands([0, width], .1);
+    }
+
+    var y = d3.scale.linear()
+        .domain([0, 1])
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10, "%");
+
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
         .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", yScale.rangeBand() / data.length / 2 + 5)
-        .attr("transform", function(d) {
-            return "translate(" + this.getBBox().height*-2 + ",0)rotate(-65)";
-        })
-        .style("font-size", "6px");
+        .style("text-anchor", "start")
+        .attr("x", 9)
+        .attr("y", 0)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("font-size", "11px");
 
-    bars.append('g')
-        .attr('class', 'axis')
-        .attr('transform', "translate(0," + (height - 60) + ")")
-        .call(xAxis);
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
 
-    bars.append('g')
-        .selectAll('.bar')
+    chart.selectAll(".ret-bar")
         .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .attr('x', 85)
-        .attr('y', function(d) {
-            return yScale(d.INSTNM);
-        })
-        .attr('width', function(d) {
-            return xScale(d['RET_FT4'] * 100) - 85;
-        })
-        .attr('height', function(d) {
-            return yScale.rangeBand();
-        })
+        .enter().append("rect")
+        .attr("class", "ret-bar")
+        .attr("x", function(d) { return x(d.INSTNM); })
+        .attr("y", function(d) { return y(+d.RET_FT4); })
+        .attr("height", function(d) { return height - y(+d.RET_FT4) - 1; })
+        .attr("width", x.rangeBand())
         .on("mousemove", function(d){
             divTooltip.style("left", d3.event.pageX+10+"px");
             divTooltip.style("top", d3.event.pageY-25+"px");
@@ -669,24 +658,11 @@ function makeRetention(data) {
             l = elements.length;
             l = l-1;
             elementData = elements[l].__data__;
-            divTooltip.html("<b>Retention Rate: </b>" + (d["RET_FT4"] * 100).toFixed(2) + "%");
+            divTooltip.html("<b>" + (d.INSTNM) + "</b>" + " (" + (d["RET_FT4"] * 100).toFixed(2) + "%)");
         })
         .on("mouseout", function(d){
             divTooltip.style("display", "none");
         });
-
-    svg.append("text")
-        .style("text-anchor", "middle")
-        .attr("x", width / 2 + 30)
-        .attr("y", height - 20)
-        .text("Retention Rate (%)");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (height / 2) + 30)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("School");
 }
 
 function makePie(data) {
@@ -704,10 +680,10 @@ function makePie(data) {
     var width = d3.select(".ratio_div").style("width");
     width = +width.slice(0, -2);
 
-    if (data.length < 5) {
+    if (data.length < 4) {
         width = width / data.length;
     } else {
-        width = width / 5;
+        width = width / 4;
     }
 
 
@@ -719,7 +695,7 @@ function makePie(data) {
     for (var i = 0; i < data.length; i++) {
         dataContainer.push([
             {"School": data[i].INSTNM, "Gender": "Men", "Percentage": data[i].UGDS_MEN, "Color": "#5da6ff"},
-            {"School": data[i].INSTNM, "Gender": "Women", "Percentage": data[i].UGDS_WOMEN, "Color": "#d96962"}
+            {"School": data[i].INSTNM, "Gender": "Women", "Percentage": data[i].UGDS_WOMEN, "Color": "#ff85a2"}
         ])
     }
 

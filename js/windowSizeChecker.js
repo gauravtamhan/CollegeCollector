@@ -44,16 +44,23 @@ $(document).ready(function() {
             $(".selection_area").fadeOut();
             $("#map").fadeOut();
             $("#info").fadeOut();
+            $(".card").fadeOut();
+            $(".small-card").fadeOut();
+            $(".tooltip").fadeOut();
 
             $(".temporary").fadeIn();
         }
         else {
             $(".page-header").fadeIn();
-            $("#info").fadeIn();
             $(".temporary").fadeOut();
-            if ($('#info').hasClass('info')) {
+            if ($('#info').hasClass('compared')) {
+                $(".card").fadeIn();
+                $(".small-card").fadeIn();
+                $(".tooltip").fadeIn();
+            } else {
                 $(".selection_area").fadeIn();
                 $("#map").fadeIn();
+                $("#info").fadeIn();
             }
         }
 

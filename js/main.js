@@ -567,8 +567,7 @@ function visitWebsite(url) {
 
 function buttonClicked() {
     $("#map").hide();
-    $("#info").hide();
-    // $("#info").empty().removeClass("info").addClass("chartbox");
+    $("#info").hide().addClass("compared");
     $(".searchbar").hide();
     $(".selection_area").hide();
 
