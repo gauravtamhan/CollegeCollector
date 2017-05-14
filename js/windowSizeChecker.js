@@ -47,6 +47,7 @@ $(document).ready(function() {
             $(".card").fadeOut();
             $(".small-card").fadeOut();
             $(".tooltip").fadeOut();
+            $(".back-top").fadeOut();
 
             $(".temporary").fadeIn();
         }
@@ -57,6 +58,7 @@ $(document).ready(function() {
                 $(".card").fadeIn();
                 $(".small-card").fadeIn();
                 $(".tooltip").fadeIn();
+                $(".back-top").fadeIn();
             } else {
                 $(".selection_area").fadeIn();
                 $("#map").fadeIn();

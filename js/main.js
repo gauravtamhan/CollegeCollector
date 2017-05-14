@@ -568,10 +568,26 @@ function visitWebsite(url) {
 function buttonClicked() {
     $("#map").hide();
     $("#info").hide().addClass("compared");
-    $(".searchbar").hide();
+    $("#input-bar").hide(); // search bar
+    $("#backButton").show();
     $(".selection_area").hide();
 
     compare(selected_schools);
+}
+
+function backToMap() {
+    $("#map").show();
+    $("#info").show().removeClass("compared");
+    $(".selection_area").show();
+
+    $("#backButton").hide();
+    $("#input-bar").show();
+
+    $(".card").remove();
+    $(".small-card").remove();
+    $(".toolTip").remove();
+    $(".nvtooltip").remove();
+    $(".back-top").remove();
 }
 
 function hideResults() {

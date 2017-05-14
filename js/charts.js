@@ -7,7 +7,6 @@
  *
  */
 
-
 var control_arr = ["", "Public", "Private (non-profit)", "Private (for-profit)"];
 
 var region_arr = ["U.S. Service Schools", "New England", "Mid East", "Great Lakes",
@@ -38,6 +37,7 @@ function compare(data) {
     makeRetention(data);
     makePie(data);
     makeEarnings(data);
+    makeScrollUpArrow()
 }
 
 function makeTable(data) {
@@ -493,7 +493,6 @@ function makePie(data) {
             .text(function(d) { return d.data.Gender; })
             .style("fill", "#fff")
             .style("text-anchor", "middle");
-        // .style("font-size", "18px");
     }
 }
 
@@ -565,4 +564,20 @@ function makeEarnings(data) {
 
         return chart;
     });
+}
+
+function makeScrollUpArrow() {
+    d3.select("body")
+        .append("div")
+        .attr("class", "back-top")
+        .append("div")
+        .attr("class", "arrow-up")
+        .append("a")
+        .attr("class", "hvr-icon-wobble-vertical")
+        .attr("onclick", "scroll()")
+}
+
+function scroll() {
+    $("body").animate({ scrollTop: 0 }, "slow");
+    return false;
 }
