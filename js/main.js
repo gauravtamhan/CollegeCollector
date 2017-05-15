@@ -45,7 +45,6 @@ String.prototype.trunc =
 
 // ------------------------------------------------------------------------
 
-
 d3.select("#compare_button").attr("disabled", "disabled");
 
 var width = 722, // 772

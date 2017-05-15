@@ -126,10 +126,11 @@ function makeSAT(data) {
     nv.addGraph(function() {
         var chart = nv.models.multiBarChart()
             .margin({ top: 80, right: 40, bottom: 80, left: 80 })
-            .showControls(false)
+            .showControls(true)
             .groupSpacing(0.2)
-            .showLegend(true)
-            .yDomain([0,800]);
+            .showLegend(true);
+            // .yDomain([0,800])
+
 
         chart.xAxis
             .axisLabel("Category")
@@ -196,10 +197,10 @@ function makeACT(data) {
     nv.addGraph(function() {
         var chart = nv.models.multiBarChart()
             .margin({ top: 80, right: 40, bottom: 80, left: 80 })
-            .showControls(false)
+            .showControls(true)
             .groupSpacing(0.2)
-            .showLegend(true)
-            .yDomain([0,36]);
+            .showLegend(true);
+            // .yDomain([0,36]);
 
         chart.xAxis
             .axisLabel("Category")
@@ -434,6 +435,9 @@ function makePie(data) {
 
     var k = 0;
 
+    var arc = d3.svg.arc().innerRadius(0)
+        .outerRadius(radius);
+
     for (var j = 0; j < dataContainer.length; j++) {
         var container = d3.select(".ratio_div").append("div")
             .attr("class", "pie-container");
@@ -456,9 +460,6 @@ function makePie(data) {
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        var arc = d3.svg.arc().innerRadius(0)
-            .outerRadius(radius);
-
         var pie = d3.layout.pie()
             .sort(null)
             .value(function(d){ return d.Percentage; });
@@ -471,9 +472,9 @@ function makePie(data) {
 
         g.append("path")
             .attr("d", arc)
-            .attr("fill", function(d){ return d.data.Color; })
+            .attr("fill", function(d) { return d.data.Color; })
             .style("stroke", "#fff")
-            .on("mousemove", function(d){
+            .on("mousemove", function(d) {
                 divTooltip.style("left", d3.event.pageX+10+"px");
                 divTooltip.style("top", d3.event.pageY-25+"px");
                 divTooltip.style("display", "inline-block");
@@ -484,7 +485,7 @@ function makePie(data) {
                 elementData = elements[l].__data__;
                 divTooltip.html("<b>Percentage: </b>" + (d.data.Percentage * 100).toFixed(2) + "%");
             })
-            .on("mouseout", function(d){
+            .on("mouseout", function(d) {
                 divTooltip.style("display", "none");
             });
 
