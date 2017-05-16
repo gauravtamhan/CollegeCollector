@@ -67,23 +67,24 @@ $(document).ready(function() {
             // }
         }
 
-        // if ($(window).load()) {
-        //     if ($(window).width() < 1100) {
-        //         $(".page-header").fadeOut(500);
-        //         $(".selection_area").fadeOut();
-        //         $("#map").fadeOut(500);
-        //         $("#info").hide();
-        //
-        //         $(".temporary").fadeIn();
-        //     }
-        // }
-        // else {
-        //     $(".page-header").fadeIn();
-        //     $(".selection_area").fadeIn();
-        //     $("#map").fadeIn();
-        //     $("#info").fadeIn();
-        //
-        //     $(".temporary").fadeOut();
-        // }
+        if ($(window).load()) {
+            if ($(window).width() < 1100) {
+                $(".page-header").fadeOut(500);
+                $(".selection_area").fadeOut();
+                $("#map").fadeOut(500);
+                $("#info").hide();
+
+                $(".temporary").fadeIn();
+            }
+        }
+        else {
+            location.reload();
+            // $(".page-header").fadeIn();
+            // $(".selection_area").fadeIn();
+            // $("#map").fadeIn();
+            // $("#info").fadeIn();
+            //
+            // $(".temporary").fadeOut();
+        }
 
     });});
