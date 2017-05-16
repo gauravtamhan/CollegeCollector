@@ -619,6 +619,21 @@ function schoolExists(schoolName) {
     });
 }
 
+var typingTimer;                //timer identifier
+var doneTypingInterval = 300;  //time in ms (5 seconds)
+
+//on keyup, start the countdown
+$('#searchBox').keyup(function(){
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+    showResults();
+}
+
 function showResults() {
 
     var input = document.getElementById("searchBox").value;
