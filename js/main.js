@@ -251,7 +251,8 @@ function clicked(d) {
                        element = f;
                    }
                 });
-                if (selected_schools.length < 10 && selected_schools.indexOf(element) < 0) {
+                var schoolAlreadyInArray = schoolExists(element.INSTNM);
+                if (selected_schools.length < 10 && !schoolAlreadyInArray) { // for clicking a school name (nation -> state)
                     selected_schools.push(element);
                     var labelBox = d3.select(".label_holder");
                     labelBox.append('span')
@@ -364,7 +365,8 @@ function clicked(d) {
                         d3.select(this).style("fill", "#3cc47c");
                     })
                     .on("click", function (f) { // This onclick is for going from nation --> state view
-                        if (selected_schools.length < 10 && selected_schools.indexOf(f) < 0) {
+                        var schoolAlreadyInArray = schoolExists(f.INSTNM);
+                        if (selected_schools.length < 10 && !schoolAlreadyInArray) {
                             selected_schools.push(f);
                             var labelBox = d3.select(".label_holder");
                             labelBox.append('span')
@@ -437,7 +439,8 @@ function clicked(d) {
                         d3.select(this).style("fill", "#3cc47c");
                     })
                     .on("click", function (f) { // This onclick is for going from state --> state view
-                        if (selected_schools.length < 10 && selected_schools.indexOf(f) < 0) {
+                        var schoolAlreadyInArray = schoolExists(f.INSTNM);
+                        if (selected_schools.length < 10 && !schoolAlreadyInArray) {
                             selected_schools.push(f);
                             var labelBox = d3.select(".label_holder");
                             labelBox.append('span')
@@ -507,7 +510,8 @@ function clicked(d) {
                                 element = f;
                             }
                         });
-                        if (selected_schools.length < 10 && selected_schools.indexOf(element) < 0) {
+                        var schoolAlreadyInArray = schoolExists(element.INSTNM);
+                        if (selected_schools.length < 10 && !schoolAlreadyInArray) { // for clicking a school name (state -> state)
                             selected_schools.push(element);
                             var labelBox = d3.select(".label_holder");
                             labelBox.append('span')
@@ -609,6 +613,12 @@ function grow() {
     $(".searchbar").animate({width: '297px'});
 }
 
+function schoolExists(schoolName) {
+    return selected_schools.some(function(el) {
+        return el.INSTNM === schoolName;
+    });
+}
+
 function showResults() {
 
     var input = document.getElementById("searchBox").value;
@@ -639,9 +649,8 @@ function showResults() {
             element.append("li")
                 .attr("class", "liElement")
                 .on("click", function (f) {
-                    // console.log(f);
-                    // console.log(selected_schools.indexOf(f));
-                    if (selected_schools.length < 10 && selected_schools.indexOf(f) < 0) {
+                    var schoolAlreadyInArray = schoolExists(f.INSTNM);
+                    if (selected_schools.length < 10 && !schoolAlreadyInArray) {
                         selected_schools.push(f);
                         var labelBox = d3.select(".label_holder");
                         labelBox.append('span')
