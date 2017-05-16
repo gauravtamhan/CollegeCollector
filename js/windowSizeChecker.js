@@ -18,7 +18,7 @@ $(document).ready(function() {
         .attr("class", "browserWarning")
         .html("&#8592 Please increase the size of your browser &#8594");
 
-    if ($(window).width() < 1210 && $(window).load()) {
+    if ($(window).width() < 1100 && $(window).load()) { // 1210
         $(".page-header").hide();
         $(".selection_area").hide();
         $("#map").hide();
@@ -28,7 +28,7 @@ $(document).ready(function() {
     }
 
     if ($(window).load()) {
-        if ($(window).width() < 1210) {
+        if ($(window).width() < 1100) {
             $(".page-header").hide();
             $(".selection_area").hide();
             $("#map").hide();
@@ -39,7 +39,7 @@ $(document).ready(function() {
     }
 
     $(window).resize(function() {
-        if ($(window).width() < 1210 && $(window).load()) {
+        if ($(window).width() < 1100 && $(window).load()) {
             $(".page-header").fadeOut();
             $(".selection_area").fadeOut();
             $("#map").fadeOut();
@@ -52,37 +52,38 @@ $(document).ready(function() {
             $(".temporary").fadeIn();
         }
         else {
-            $(".page-header").fadeIn();
-            $(".temporary").fadeOut();
-            if ($('#info').hasClass('compared')) {
-                $(".card").fadeIn();
-                $(".small-card").fadeIn();
-                $(".tooltip").fadeIn();
-                $(".back-top").fadeIn();
-            } else {
-                $(".selection_area").fadeIn();
-                $("#map").fadeIn();
-                $("#info").fadeIn();
-            }
+            location.reload();
+            // $(".page-header").fadeIn();
+            // $(".temporary").fadeOut();
+            // if ($('#info').hasClass('compared')) {
+            //     $(".card").fadeIn();
+            //     $(".small-card").fadeIn();
+            //     $(".tooltip").fadeIn();
+            //     $(".back-top").fadeIn();
+            // } else {
+            //     $(".selection_area").fadeIn();
+            //     $("#map").fadeIn();
+            //     $("#info").fadeIn();
+            // }
         }
 
-        if ($(window).load()) {
-            if ($(window).width() < 1210) {
-                $(".page-header").fadeOut(500);
-                $(".selection_area").fadeOut();
-                $("#map").fadeOut(500);
-                $("#info").hide();
-
-                $(".temporary").fadeIn();
-            }
-        }
-        else {
-            $(".page-header").fadeIn();
-            $(".selection_area").fadeIn();
-            $("#map").fadeIn();
-            $("#info").fadeIn();
-
-            $(".temporary").fadeOut();
-        }
+        // if ($(window).load()) {
+        //     if ($(window).width() < 1100) {
+        //         $(".page-header").fadeOut(500);
+        //         $(".selection_area").fadeOut();
+        //         $("#map").fadeOut(500);
+        //         $("#info").hide();
+        //
+        //         $(".temporary").fadeIn();
+        //     }
+        // }
+        // else {
+        //     $(".page-header").fadeIn();
+        //     $(".selection_area").fadeIn();
+        //     $("#map").fadeIn();
+        //     $("#info").fadeIn();
+        //
+        //     $(".temporary").fadeOut();
+        // }
 
     });});

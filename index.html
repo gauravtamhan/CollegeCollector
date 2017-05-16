@@ -31,22 +31,24 @@
 </head>
 <body class='with-transitions'>
     <div class="page-header">
-        <h1 class="title"><a href="javascript:history.go(0)">College Collector </a><small class="subtitle"> A new way to research college admissions</small></h1>
-        <div class="searchbar">
-            <div class="back-button">
-                <button type="button" id="backButton" onclick="backToMap()" class="btn btn-link goBack" style="display: none;">Return to school selection</button>
-            </div>
-            <div class="inner-addon left-addon" id="input-bar">
-                <i class="glyphicon glyphicon-search"></i>
-                <input type="list" id="searchBox" class="form-control" aria-describedby="basic-addon1" onkeyup="showResults()" placeholder="Search" onblur="hideResults()" onfocus="grow()">
-            </div>
-            <div class="dropdown-menu search" id="results" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;">
-                <ul class="resultsUlList" id="resultsList">
-                </ul>
+        <div style="margin: 0 auto">
+            <h1 class="title"><a href="javascript:history.go(0)">College Collector </a><small class="subtitle"> A new way to research college admissions</small></h1>
+            <div class="searchbar">
+                <div class="back-button">
+                    <button type="button" id="backButton" onclick="backToMap()" class="btn btn-link goBack" style="display: none;">Return to school selection</button>
+                </div>
+                <div class="inner-addon left-addon" id="input-bar">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="list" id="searchBox" class="form-control" aria-describedby="basic-addon1" onkeyup="showResults()" placeholder="Search" onblur="hideResults()" onfocus="grow()">
+                </div>
+                <div class="dropdown-menu search" id="results" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;">
+                    <ul class="resultsUlList" id="resultsList">
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div style="height: 95px; margin-bottom: 20px"></div>
+    <div style="height: 95px; margin-bottom: 2%"></div>
     <div class="selection_area">
         <div class="label_holder"></div>
         <div class="button_holder">

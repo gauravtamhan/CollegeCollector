@@ -47,14 +47,17 @@ String.prototype.trunc =
 
 d3.select("#compare_button").attr("disabled", "disabled");
 
-var width = 722, // 772
-    height = 450, // 500
-    centered;
+var width = d3.select("#map").style("width");
+width = +width.slice(0, -2);
+
+var height = width * 0.623;
+
+var centered;
 
 var selected_schools = [];
 
 var projection = d3.geo.albersUsa()
-    .scale(1000) // 1070
+    .scale(width * 1.385) // 1070
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
@@ -63,6 +66,11 @@ var path = d3.geo.path()
 var svg = d3.select("#map").append("svg")
     .attr("width", width)
     .attr("height", height);
+
+// ------ sets the height of infobox equal to height of map -----
+var infoH = d3.select("#map").style("height");
+d3.select(".info").style("height", infoH);
+// --------------------------------------------------------------
 
 svg.append("rect")
     .attr("class", "background")
