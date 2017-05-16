@@ -99,7 +99,7 @@ function makeSAT(data) {
         .attr('width', width)
         .attr('height', height);
 
-    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ECA53E", "#365882", "#197F90"];
 
     // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
@@ -170,7 +170,7 @@ function makeACT(data) {
         .attr('width', width)
         .attr('height', height);
 
-    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ECA53E", "#365882", "#197F90"];
 
     // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
@@ -515,7 +515,7 @@ function makeEarnings(data) {
         .attr('width', width)
         .attr('height', height);
 
-    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#034f84", "79c753"];
+    var colors = ["#f7cac9", "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ECA53E", "#365882", "#197F90"];
     // var colors = ["#F7CAC9", "#F7786B", "#91A8D0", "#034F84", "#98DDDE", "#9896A4", "#B18F6A", "#DD4132", "#FAE03C", "#79C753"];
 
     // var colors = ["#2b4c5a", "#375f5e", "#447161", "#508465", "#539769", "#6baa6d", "#78bd70", "#86d075", "#94e475", "#a2f77c"];

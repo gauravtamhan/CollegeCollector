@@ -270,9 +270,8 @@ button:focus {
     vertical-align: middle;
 }
 
-button.combo {
-    /*display: inline-block;*/
-    /*margin-bottom: 20px;*/
+.icon-space {
+    padding-right: 4px;
 }
 
 .btn[disabled] {
