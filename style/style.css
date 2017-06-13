@@ -1,8 +1,8 @@
 
 /* Styling when browser is too small */
 .temporary, .rotation {
-    width: 400px;
-    height: 150px;
+    width: 60%;
+    height: 40%;
     margin: auto;
     text-align: center;
     position: absolute;

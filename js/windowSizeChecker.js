@@ -22,7 +22,7 @@ $(document).ready(function() {
         .style("display", "none")
         .append("img")
         .attr("src", "img/Rotation.png")
-        .attr("width", "80%");
+        .attr("width", "100%");
 
     $(window).on("orientationchange", function() {
         if (window.orientation == 0) { // Portrait
