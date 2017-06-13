@@ -20,9 +20,9 @@ $(document).ready(function() {
     d3.select("body").append("div")
         .attr("class", "rotation")
         .style("display", "none")
-        .append("h2")
-        .attr("class", "browserWarning")
-        .html("&#8635 <br> Please rotate your device to landscape orientation");
+        .append("img")
+        .attr("src", "img/Rotation.png")
+        .attr("width", "80%");
 
     $(window).on("orientationchange", function() {
         if (window.orientation == 0) { // Portrait
