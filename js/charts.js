@@ -51,11 +51,12 @@ function makeTable(data) {
         .attr("class", "table_div");
 
     var table = table_div.append("table")
-        .attr("class", "table table-bordered table-hover");
+        .attr("class", "table")
+        .attr("id", "infoTable");
 
     var thead = table.append("thead").append("tr");
 
-    thead.append("th");
+    thead.append("th").html("Colleges");
     thead.append("th").html("Description");
     thead.append("th").html("Status");
     thead.append("th").html("Region");
@@ -68,7 +69,8 @@ function makeTable(data) {
         .data(data).enter()
         .append("tr");
 
-    tr.append('th').html(function(d) { return d.INSTNM; });
+    tr.append('td').style({"word-wrap": "break-word", "max-width": "300px", "white-space": "normal"})
+        .html(function(d) { return d.INSTNM; });
     tr.append('td').html(function(d) { return sizeset_arr[d.CCSIZSET]; });
     tr.append('td').html(function(d) { return control_arr[d.CONTROL]; });
     tr.append('td').html(function(d) { return region_arr[d.REGION]; });
@@ -77,6 +79,18 @@ function makeTable(data) {
     });
     tr.append('td').html(function(d) {
         return "$" + Number(d.TUITIONFEE_OUT).toLocaleString('en-US', {minimumFractionDigits: 0});
+    });
+
+    $(document).ready(function() {
+        $('#infoTable').DataTable({
+            paging: false,
+            info: false,
+            searching: false,
+            columnDefs: [
+                { targets: 1, orderable: false }
+            ],
+            order: [0, "asc"]
+        });
     });
 }
 
