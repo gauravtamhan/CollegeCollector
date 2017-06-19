@@ -119,9 +119,14 @@ div.search {
     padding: 0 0 0 0;
 }
 
-.liElement:hover {
-    background-color: #f5f5f5;
+li.liElement:hover, li.highlight {
+    background-color: rgba(237, 237, 237, 1);
     cursor: pointer;
+}
+
+.notFound {
+    font-style: italic;
+    opacity: 0.6;
 }
 
 ul.resultsUlList {
@@ -200,7 +205,7 @@ p#loc {
     margin-bottom: 4%;
     width: 30%;
     background-color: #fff;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
 }
 
 .combo {
@@ -358,24 +363,13 @@ button.deselect {
 
 
 /* Charts Page Styling */
-.chartbox {
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 2%;
-    /*border: 1px solid #e5e5e5;*/
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    /*height: 902px;*/
-    padding: 20px;
-    background-color: #fff;
-    /*border-radius: 4px;*/
-}
 
 .card {
     margin-top: 3%;
     margin-left: 2%;
     margin-right: 2%;
     margin-bottom: 2%;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
     background-color: #fff;
 }
 
@@ -386,7 +380,7 @@ button.deselect {
 .small-card {
     margin-top: 2%;
     margin-bottom: 2%;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
     background-color: #fff;
     height: 575px;
     width: 47%;

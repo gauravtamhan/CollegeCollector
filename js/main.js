@@ -606,11 +606,12 @@ function hideResults() {
         $(".searchbar").animate({width: '260px'});
         document.getElementById("results").style.display = "none";
         document.getElementById("searchBox").value = '';
+        d3.select("#resultsList").selectAll("li").remove();
     }, 150);
 }
 
 function grow() {
-    $(".searchbar").animate({width: '297px'});
+    $(".searchbar").animate({ width: '297px' });
 }
 
 function schoolExists(schoolName) {
@@ -619,50 +620,143 @@ function schoolExists(schoolName) {
     });
 }
 
-var typingTimer;                //timer identifier
-var doneTypingInterval = 300;  //time in ms (5 seconds)
+$('#searchBox').keyup(function(e) {
 
-//on keyup, start the countdown
-$('#searchBox').keyup(function(){
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(doneTyping, doneTypingInterval);
-
+    if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) {
+        switch (e.keyCode) {
+            case 13:        // return
+                e.preventDefault();
+                selectResult();
+                document.getElementById("searchBox").value = '';
+                $('#results').slideUp();
+                setTimeout(function () {
+                    d3.select("#resultsList").selectAll("li").remove();
+                }, 150);
+                return;
+            case 38:        // up
+                e.preventDefault();
+                highlightResult(-1);
+                return;
+            case 40:        // down
+                e.preventDefault();
+                highlightResult(1);
+                return;
+        }
+    } else {
+        showResults();
+    }
 });
 
-//user is "finished typing," do something
-function doneTyping () {
-    showResults();
+function highlightResult(n) {
+
+    var $res = $("#resultsList");
+
+    var hilgt = $res.find('.highlight');
+    var newhilgt;
+
+    // if we don't have a highlighted element...
+    var hasNoResults= $res.find('li').first()[0].innerText == "No Results Found";
+    if (!hilgt.length && !hasNoResults) {
+        if (n > 0) {
+            console.log("made it");
+            // highlight the first one
+            $res.find('li').first().addClass('highlight');
+            document.getElementById("searchBox").value = $res.find('li').first()[0].innerText;
+        } else {
+            console.log("made it here");
+            // highlight the last one
+            $res.find('li').last().addClass('highlight');
+            document.getElementById("searchBox").value = $res.find('li').last()[0].innerText;
+        }
+    }
+
+    if (!hasNoResults) {
+        if (n > 0) {
+            var newhilgt = hilgt.next();
+            document.getElementById("searchBox").value = hilgt.next()[0].innerText;
+        } else {
+            var newhilgt = hilgt.prev();
+            document.getElementById("searchBox").value = hilgt.prev()[0].innerText;
+        }
+
+
+        if (newhilgt.length) {
+            newhilgt.addClass('highlight');
+            hilgt.removeClass('highlight');
+        }
+    }
+}
+
+function selectResult() {
+    var sel = $("#resultsList").find( '.highlight' );
+    if( sel.length ) {
+        var sch = sel[0].__data__;
+        var schoolAlreadyInArray = schoolExists(sch.INSTNM);
+        if (selected_schools.length < 10 && !schoolAlreadyInArray) {
+            selected_schools.push(sch);
+            var labelBox = d3.select(".label_holder");
+            labelBox.append('span')
+                .attr("class", "label label-success")
+                .text(sch.INSTNM)
+                .append("button")
+                .attr("type", "button")
+                .attr("class", "close deselect")
+                .on("click", function () {
+                    var index = selected_schools.indexOf(sch);
+
+                    if (index > -1) {
+                        selected_schools.splice(index, 1);
+                    }
+                    d3.select(".label:nth-child(" + (index + 1) + ")").remove();
+
+                    if (selected_schools.length < 2) {
+                        $("#compare_button").animate({
+                            "opacity": 0
+                        });
+                        d3.select("#compare_button").attr("disabled", "disabled");
+                    }
+                })
+                .append("span").html("&times;");
+        }
+        if (selected_schools.length >= 2) {
+            $("#compare_button").animate({
+                "opacity": 1
+            });
+            d3.select("#compare_button").attr("disabled", null);
+        }
+    }
 }
 
 function showResults() {
 
     var input = document.getElementById("searchBox").value;
+    var searchTerms = input.split(" ");
 
     var list = d3.select("#resultsList");
 
-    list.selectAll(".liElement").remove();
-
     if (input !== "") {
-        document.getElementById("results").style.display = "block";
-    } else {
-        document.getElementById("results").style.display = "none";
-    }
+        setTimeout(function () {
+            $('#results').slideDown();
+        }, 150);
 
-    d3.csv("data/allData.csv", function (error, data) {
-        if (error) return error;
+        d3.csv("data/allData.csv", function (error, data) {
+            if (error) return error;
 
-        data = data.filter(function (d) {
-            return d.INSTNM.toUpperCase().includes(input.toUpperCase());
-        });
+            data = data.filter(function (d) {
+                return new RegExp(searchTerms.join('.*'), "i").test(d.INSTNM);
+            });
 
-        if (data.length === 0) {
-            list.append("li").attr("class", "liElement").html("No results found.");
-        } else {
-            // console.log(data);
-            var element = list.selectAll("li").data(data).enter();
+            d3.select("#resultsList").selectAll("li").data(data.filter(function (d) {
+                return new RegExp(searchTerms.join('.*'), "i").test(d.INSTNM);
+            })).enter().append("li");
 
-            element.append("li")
+            d3.select("#resultsList").selectAll("li").data(data.filter(function (d) {
+                return new RegExp(searchTerms.join('.*'), "i").test(d.INSTNM);
+            }))
                 .attr("class", "liElement")
+                .on("mouseover", function (f) {
+                    d3.selectAll("li").classed('highlight', false);
+                })
                 .on("click", function (f) {
                     var schoolAlreadyInArray = schoolExists(f.INSTNM);
                     if (selected_schools.length < 10 && !schoolAlreadyInArray) {
@@ -703,6 +797,37 @@ function showResults() {
                 .html(function (d) {
                     return d.INSTNM;
                 });
-        }
-    });
+
+            var hilgt = $("#resultsList").find('.highlight');
+            if (!hilgt.length) {
+                $("#resultsList").find('li').first().addClass('highlight');
+            }
+
+            d3.select("#resultsList").selectAll("li").data(data.filter(function (d) {
+                return new RegExp(searchTerms.join('.*'), "i").test(d.INSTNM);
+            })).exit().remove();
+
+            if (data.length === 0) {
+                list.append("li").attr("class", "liElement notFound").html("No Results Found");
+            }
+        });
+    }
+    else {
+        $('#results').slideUp();
+        setTimeout(function () {
+            d3.select("#resultsList").selectAll("li").remove();
+        }, 150);
+    }
+
 }
+
+$(document).keyup(function (e) {
+    var $sb = $('#searchBox');
+    if ($('#searchBox:focus').length == 0) {
+        if (e.which == 13) { $sb.focus(); }
+        if (e.which == 67) { buttonClicked() }
+    }
+    if (e.keyCode == 27 && $('#searchBox:focus').length > 0) {
+        $sb.blur();
+    }
+});
