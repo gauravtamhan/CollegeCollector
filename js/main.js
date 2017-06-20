@@ -825,7 +825,8 @@ $(document).keyup(function (e) {
     var $sb = $('#searchBox');
     if ($('#searchBox:focus').length == 0) {
         if (e.which == 13) { $sb.focus(); }
-        if (e.which == 67) { buttonClicked() }
+        if (e.which == 67 && selected_schools.length > 1 && !$('#info').hasClass('compared')) { buttonClicked() }
+        if (e.which == 66 && selected_schools.length > 1 && $('#info').hasClass('compared')) { backToMap() }
     }
     if (e.keyCode == 27 && $('#searchBox:focus').length > 0) {
         $sb.blur();

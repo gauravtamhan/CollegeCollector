@@ -422,6 +422,7 @@ function makePie(data) {
 
     var width = d3.select(".ratio_div").style("width");
     width = +width.slice(0, -2);
+    var originalWidth = width;
 
     if (data.length < 4) {
         width = width / data.length;
@@ -429,8 +430,18 @@ function makePie(data) {
         width = width / 4;
     }
 
-
-    var height = width - (120 / data.length);
+    var height;
+    if (originalWidth > 1200) {         // if window is wider than 1200px
+        if (data.length < 3) {
+            height = width * 0.7;       // 2 items, height smallest so circles spaced out
+        } else if (data.length < 4) {
+            height = width * 0.8;       // 3 items, height small so circles are kind of spaced out
+        } else {
+            height = width - (120 / data.length); // 4 items, normal spacing
+        }
+    } else {
+        height = width - (120 / data.length); // if window is less than 1200px, normal spacing
+    }
 
     var radius = Math.min(height, width) / 2;
 
